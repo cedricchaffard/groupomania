@@ -1,8 +1,11 @@
 import Vue from 'vue'
-import App from './App.vue'
+import router from './router'
+import AuthWrapper from "./vues/AuthWrapper";
+import "@fortawesome/fontawesome-free/css/all.css"
 
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App),
+  router,
+  render: h => h(AuthWrapper),
 }).$mount('#app')

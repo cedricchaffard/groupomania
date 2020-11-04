@@ -2,10 +2,16 @@
   <ul>
     <li v-for="post in posts" :key="post.id">
       <div>{{ post.title }}</div>
-      <div class="likes">{{ post.likes }} likes</div>
-      <i class="far fa-heart"></i>
-      <img :src="post.image" />
-      <div class="commentary">{{ post.commentaire }}</div>
+      <div class="txtpost">{{post.texte}}</div>
+      <img :src="postimage(post.image)" />
+      <div class="actions">
+        <button class="comment">Comment</button>
+        <button class="commentary">Voir les commentaires</button>
+        <button class="modify">Modifier</button>
+        <button class="delete">Supprimer</button>
+        <i class="far fa-heart"></i>
+        <div class="likes">{{ post.likes }} likes</div>
+      </div>
     </li>
   </ul>
 </template>
@@ -15,6 +21,13 @@ export default {
   name: "Posts",
   props: {
     posts: Array,
+  },
+  methods: {
+    postimage(image) {
+      if (image) {
+        return require("@/assets/images/groupomania_Logos/" + image);
+      }
+    },
   },
 };
 </script>
@@ -26,46 +39,39 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  min-width: 300px;
+  margin: 0 30px;
 }
 
 li {
   padding: 20px;
-  border: 1px black solid;
-  width: 50%;
+  width: 100%;
   margin-bottom: 20px;
   border-radius: 4px;
   position: relative;
-  background-color: rgb(0, 132, 255);
-    box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.25), -6px -6px 10px 0 rgba(255, 255, 255, 0.55);
-
-}
-.likes {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  background-color: rgb(255, 255, 255);
+  border: 0.1px #ffffff70 solid;
+  color: black;
+  margin-left: 0;
 }
 
 img {
   width: 100%;
 }
 
-.commentary {
-    width: 100%;
-    height: 100%;
-    border: 1px solid black;
-margin-bottom: 10px;
-  box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.25), -6px -6px 10px 0 rgba(255, 255, 255, 0.55);
-
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
 i {
   height: 20px;
   width: 20px;
-  border: red solid 2px;
-   position: absolute;
-  bottom: 0;
-  right: 50px;
   color: black;
+}
+
+.txtpost{
+  margin: 10px 0;
 }
 </style>
