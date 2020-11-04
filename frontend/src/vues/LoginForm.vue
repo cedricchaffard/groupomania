@@ -11,10 +11,13 @@
         />
         <button type="submit">Log in</button>
       </form>
-      <img
-        src="../assets/images/groupomania_Logos/icon-above-font.svg"
-        alt=""
-      />
+      <div>
+        Not already an account<br /><br />
+        <button>
+            <router-link to="/Sign_Up">Create</router-link>
+          </button>
+      </div>
+      <img src="../assets/images/background/computer.jpg" alt="" />
     </div>
   </div>
 </template>
@@ -48,7 +51,7 @@ export default {
   color: tomato;
 }
 
-h1{
+h1 {
   font-size: 1.5em;
   font-weight: 100;
 }
@@ -81,6 +84,8 @@ form {
   padding: 1vh;
   width: 20vh;
   background-color: brown;
+  border-radius: 4%;
+  margin-bottom: 2vh;
 }
 
 img {
