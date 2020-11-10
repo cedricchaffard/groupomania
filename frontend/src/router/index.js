@@ -1,7 +1,9 @@
-import Vue from 'vue' 
-import Router from 'vue-router' 
+import Vue from 'vue'
+import Router from 'vue-router'
 import LoginForm from '../vues/LoginForm'
 import Sign_Up from '../vues/Sign_Up'
+import AddPost from '../vues/AddPost'
+import ModifyPost from '../vues/ModifyPost'
 import App from '../vues/App'
 
 
@@ -15,14 +17,24 @@ export default new Router({
       component: App
     },
     {
-        path: '/LoginForm',
-        name: 'LoginForm',
-        component: LoginForm
+      path: '/LoginForm',
+      name: 'LoginForm',
+      component: LoginForm
     },
     {
-        path: '/Sign_Up',
-        name: 'Sign_Up',
-        component: Sign_Up
-    }
+      path: '/Sign_Up',
+      name: 'Sign_Up',
+      component: Sign_Up
+    },
+    {
+      path: '/AddPost',
+      name: 'AddPost',
+      component: AddPost
+    },
+    {
+      path: '/ModifyPost',
+      name: 'ModifyPost',
+      component: ModifyPost
+    },
   ]
 })

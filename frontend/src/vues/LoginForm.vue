@@ -1,23 +1,24 @@
 <template>
   <div id="app">
     <HeaderNotConnected></HeaderNotConnected>
-    <div class="layout">
+    <div class="layout-page">
+      <!-- <img src="../assets/images/background/businessman-touching-red-icon-connected.jpg" alt="" /> -->
       <h1>Login</h1>
       <form @submit.prevent="submit()">
         <p v-if="errorMessage" class="error"></p>
-        email<input type="email" v-model="email" /> password<input
+        email<input type="email" v-model="email" />
+        password<input
           type="password"
           v-model="password"
         />
         <button type="submit">Log in</button>
       </form>
-      <div>
+      <div class="create_account">
         Not already an account<br /><br />
-        <button>
+        <button class="signup">
             <router-link to="/Sign_Up">Create</router-link>
           </button>
       </div>
-      <img src="../assets/images/background/computer.jpg" alt="" />
     </div>
   </div>
 </template>
@@ -66,12 +67,16 @@ h1 {
   padding-top: 150px;
 }
 
-.layout {
+.layout-page {
   max-width: 1024px;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
+  background-image: url(../assets/images/background/businessman-touching-red-icon-connected.jpg);
+  background-size: cover;
+
 }
 form {
   color: white;
@@ -81,15 +86,28 @@ form {
   justify-content: space-between;
   align-items: center;
   border: 0.1px rgba(255, 255, 255, 0.39) solid;
-  padding: 1vh;
+  padding: 2vh;
   width: 20vh;
   background-color: brown;
   border-radius: 4%;
   margin-bottom: 2vh;
+  /* z-index: 1000; */
 }
 
 img {
   /* z-index: 10000000; */
-  filter: invert(100%);
+  /* filter: invert(100%); */
+  max-width: 100%;
+  opacity: 20%;
+  position: absolute;
+}
+
+.create_account{
+  margin-bottom: 2vh;
+    z-index: 100000;
+}
+
+button{
+  z-index: 10000;
 }
 </style>

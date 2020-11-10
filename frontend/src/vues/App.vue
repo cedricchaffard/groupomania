@@ -6,12 +6,25 @@
         <Contacts :contacts="contacts"> </Contacts>
       </div>
       <div class="post">
-        <Posts :posts="posts"> </Posts>
+        <Posts
+          :posts="posts"
+          :displayCommentModal="displayCommentModal"
+          :displayCommentView="displayCommentView"
+        >
+        </Posts>
       </div>
       <div class="photos">
         <Photos :photos="photos"> </Photos>
       </div>
     </div>
+    <CommentModal
+      v-if="commentModalVisible"
+      :close="() => (commentModalVisible = false)"
+    ></CommentModal>
+    <CommentView
+      v-if="commentViewVisible"
+      :close="() => (commentViewVisible = false)"
+    ></CommentView>
   </div>
 </template>
 
@@ -20,6 +33,8 @@ import HeaderConnected from "../components/HeaderConnected.vue";
 import Contacts from "../components/Contacts";
 import Posts from "../components/Posts";
 import Photos from "../components/Photos";
+import CommentModal from "../components/CommentModal";
+import CommentView from "../components/CommentView";
 
 import { getContacts, getPosts, getInfos, getPhotos } from "../api";
 
@@ -30,6 +45,8 @@ export default {
     Posts,
     Contacts,
     Photos,
+    CommentModal,
+    CommentView,
   },
   data() {
     return {
@@ -37,6 +54,8 @@ export default {
       contacts: [],
       infos: [],
       photos: [],
+      commentModalVisible: false,
+      commentViewVisible: false,
     };
   },
   created() {
@@ -53,6 +72,16 @@ export default {
     getPhotos().then((photos) => {
       this.photos = photos;
     });
+  },
+  methods: {
+    displayCommentModal(post) {
+      this.commentModalVisible = true;
+      console.log(post);
+    },
+    displayCommentView(post) {
+      this.commentViewVisible = true;
+      console.log(post);
+    },
   },
 };
 </script>
@@ -89,4 +118,17 @@ header {
   height: calc(100vh - 150px);
   overflow: auto;
 }
+/* 
+.comment-layout{
+  min-width: 300px; 
+  margin: 0 30px; 
+  margin-bottom: 20px;
+  border-radius: 4px;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  border: 0.1px #ffffff70 solid;
+  color: black;
+  margin-left: 0;
+  
+} */
 </style>

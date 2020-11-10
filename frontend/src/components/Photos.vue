@@ -1,9 +1,16 @@
 <template>
+<div>
   <ul>
     <li v-for="photo in photos" :key="photo.id">
       <div id="pics">{{ photo.image }}</div>
     </li>
   </ul>
+  <div>
+    <button class="add">
+      <router-link to="/AddPost">+ Add a new Post</router-link>
+    </button>
+  </div>
+  </div>
 </template>
 
 <script>
@@ -27,6 +34,7 @@ ul {
   padding-top: 10px;
   padding-bottom: 10px;
   margin: 0;
+  margin-bottom: 2vh;
 }
 
 li {
@@ -38,6 +46,15 @@ li {
   margin: 20px 20px;
   display: flex;
   flex-direction: column;
+}
+
+.add{
+  width: 100%;
+  font-size: .8em;
+}
+
+a {
+    text-decoration: none;
 }
 
 </style>

@@ -7,6 +7,11 @@
       <div class="infos">
         <Infos :infos="infos"> </Infos>
       </div>
+      <div class="logout">
+        <button>
+          <router-link to="/LoginForm">Log Out</router-link>
+        </button>
+      </div>
     </div>
   </header>
 </template>
@@ -62,5 +67,9 @@ header .layout {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
 }
 </style>

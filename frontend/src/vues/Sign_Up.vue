@@ -5,23 +5,28 @@
     <HeaderNotConnected></HeaderNotConnected>
     <div class="layout">
       <h1>Sign Up</h1>
-      <form action="">
+      <form @submit.prevent="submit()">
         <div>
-          <div>
+          <div class="layout-form">
             <label for="name">Username: </label>
             <input type="text" name="name" id="name" required />
           </div>
-          <div>
+          <div class="layout-form">
             <label for="password">Password: </label>
             <input type="text" name="password" id="password" required />
           </div>
-          <div>
+          <div class="layout-form">
             <label for="password-confirm">Confirm Password: </label>
-            <input type="text" name="password-confirm" id="password-confirm" required />
+            <input
+              type="text"
+              name="password-confirm"
+              id="password-confirm"
+              required
+            />
           </div>
         </div>
       </form>
-      <button>Create Account</button>
+      <button type="submit">Create Account</button>
     </div>
   </div>
 </template>
@@ -57,8 +62,39 @@ input {
 }
 
 .layout {
-  display: block;
+  display: flex;
+  flex-direction: column;
   max-width: 1024px;
   margin: auto;
+  background-image: url(../assets/images/background/businessman-touching-red-icon-connected.jpg);
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+  align-items: center;
+  color: black;
 }
+h1 {
+  margin-top: 2vh;
+}
+
+.layout-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin: 5px; */
+  width: 100%;
+  color: black;
+  background-color: brown;
+  padding: 1vh;
+}
+
+form{
+  margin-bottom: 2vh;
+}
+
+input{
+  width: 45%;
+  border-radius: 4%;
+}
+
 </style>

@@ -2,12 +2,18 @@
   <ul>
     <li v-for="post in posts" :key="post.id">
       <div>{{ post.title }}</div>
-      <div class="txtpost">{{post.texte}}</div>
-      <img :src="postimage(post.image)" />
+      <div v-if="post.texte" class="txtpost">{{ post.texte }}</div>
+      <img v-if="post.image" :src="postimage(post.image)" />
       <div class="actions">
-        <button class="comment">Comment</button>
-        <button class="commentary">Voir les commentaires</button>
-        <button class="modify">Modifier</button>
+        <button @click="displayCommentModal(post)" class="comment">
+          Comment
+        </button>
+        <button @click="displayCommentView(post)" class="commentary">
+          Voir les commentaires
+        </button>
+        <button class="modify">
+          <router-link to="ModifyPost">Modifier</router-link>
+        </button>
         <button class="delete">Supprimer</button>
         <i class="far fa-heart"></i>
         <div class="likes">{{ post.likes }} likes</div>
@@ -21,6 +27,8 @@ export default {
   name: "Posts",
   props: {
     posts: Array,
+    displayCommentModal: Function,
+    displayCommentView: Function,
   },
   methods: {
     postimage(image) {
@@ -71,7 +79,12 @@ i {
   color: black;
 }
 
-.txtpost{
+.txtpost {
   margin: 10px 0;
 }
+
+a {
+  text-decoration: none;
+}
+
 </style>
