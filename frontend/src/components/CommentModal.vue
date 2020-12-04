@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <form @submit="submitComment">
     <div class="conteneur_modal">
-      Créer un commentaire
+      Créer un commentaire {{ post.title}}
       <label for="commentaire"></label>
       <input
         type="text"
@@ -12,11 +12,11 @@
         placeholder="Votre commentaire"
       />
       <div class="publish_layout">
-        <button class="publish">Publier</button>
+        <button type="submit" class="publish">Publier</button>
         </div>
     </div>
     <div class="background_modal" @click="close"></div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -24,6 +24,14 @@ export default {
   name: "CommentModal",
   props: {
     close: Function,
+    post: Object,
+    addComment: Function,
+  },
+  methods: {
+    submitComment(e) {
+      e.preventDefault()
+      this.addComment(this.post.id, e.target.name.value)
+    }
   },
 };
 </script>

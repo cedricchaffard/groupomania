@@ -10,6 +10,7 @@
           :posts="posts"
           :displayCommentModal="displayCommentModal"
           :displayCommentView="displayCommentView"
+          :deletePost="deletePost"
         >
         </Posts>
       </div>
@@ -19,12 +20,11 @@
     </div>
     <CommentModal
       v-if="commentModalVisible"
+      :post="commentPost"
+      :addComment="addComment"
       :close="() => (commentModalVisible = false)"
-    ></CommentModal>
-    <CommentView
-      v-if="commentViewVisible"
-      :close="() => (commentViewVisible = false)"
-    ></CommentView>
+    >
+    </CommentModal>
   </div>
 </template>
 
@@ -34,7 +34,6 @@ import Contacts from "../components/Contacts";
 import Posts from "../components/Posts";
 import Photos from "../components/Photos";
 import CommentModal from "../components/CommentModal";
-import CommentView from "../components/CommentView";
 
 import { getContacts, getPosts, getInfos, getPhotos } from "../api";
 
@@ -46,7 +45,6 @@ export default {
     Contacts,
     Photos,
     CommentModal,
-    CommentView,
   },
   data() {
     return {
@@ -55,7 +53,7 @@ export default {
       infos: [],
       photos: [],
       commentModalVisible: false,
-      commentViewVisible: false,
+      commentPost: null,
     };
   },
   created() {
@@ -75,13 +73,25 @@ export default {
   },
   methods: {
     displayCommentModal(post) {
+      this.commentPost=post;
       this.commentModalVisible = true;
       console.log(post);
     },
-    displayCommentView(post) {
-      this.commentViewVisible = true;
-      console.log(post);
+    addComment(postId,comment) {
+      for (let i=0; i<this.posts.length; i++) {
+        if(this.posts[i].id === postId ) {
+          this.posts[i].commentaires.push(comment)
+          console.log(this.posts[i])
+          this.commentModalVisible=false
+          return
+        } 
+      }
+      console.log(postId,comment)
     },
+    deletePost(postId){
+      // Map, Reduce, Filter (MDN)
+      this.posts = this.posts.filter((p) => p.id !== postId);
+    }
   },
 };
 </script>
@@ -118,17 +128,9 @@ header {
   height: calc(100vh - 150px);
   overflow: auto;
 }
-/* 
-.comment-layout{
-  min-width: 300px; 
-  margin: 0 30px; 
-  margin-bottom: 20px;
-  border-radius: 4px;
-  position: relative;
-  background-color: rgb(255, 255, 255);
-  border: 0.1px #ffffff70 solid;
-  color: black;
-  margin-left: 0;
-  
-} */
+
+.photos {
+  margin-right: 0;
+  margin-left: auto;
+}
 </style>

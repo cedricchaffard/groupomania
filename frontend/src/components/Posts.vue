@@ -6,35 +6,56 @@
       <img v-if="post.image" :src="postimage(post.image)" />
       <div class="actions">
         <button @click="displayCommentModal(post)" class="comment">
-          Comment
+          Commenter
         </button>
-        <button @click="displayCommentView(post)" class="commentary">
+        <button @click="displayCommentView(post)" class="comment_view">
           Voir les commentaires
         </button>
         <button class="modify">
-          <router-link to="ModifyPost">Modifier</router-link>
+          <router-link :to="{name: 'ModifyPost', params: {id: post.id}}">Modifier</router-link>
         </button>
-        <button class="delete">Supprimer</button>
-        <i class="far fa-heart"></i>
-        <div class="likes">{{ post.likes }} likes</div>
+        <button @click="deletePost(post.id)" class="delete">Supprimer</button>
+        <Like></Like>
       </div>
+      <CommentView
+        v-if="commentViewVisible[post.id]"
+        :comments="post.commentaires"
+        :close="() => (commentViewVisible[post.id] = false)"
+      ></CommentView>
     </li>
   </ul>
 </template>
 
 <script>
+import CommentView from "../components/CommentView";
+import Like from "../components/Like";
+
 export default {
   name: "Posts",
+  components: {
+    CommentView,
+    Like,
+  },
+  data() {
+    return {
+      commentViewVisible: {},
+      likes: 0,
+    };
+  },
   props: {
     posts: Array,
     displayCommentModal: Function,
-    displayCommentView: Function,
+    deletePost: Function
   },
   methods: {
     postimage(image) {
       if (image) {
         return require("@/assets/images/groupomania_Logos/" + image);
       }
+    },
+    displayCommentView(post) {
+      this.commentViewVisible = { ...this.commentViewVisible, [post.id]: true };
+      console.log(this.commentViewVisible);
     },
   },
 };
@@ -87,4 +108,11 @@ a {
   text-decoration: none;
 }
 
+.fas:active {
+  color: red;
+  margin-right: 0;
+}
+.likes {
+  display: flex;
+}
 </style>

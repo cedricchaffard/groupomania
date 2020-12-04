@@ -32,7 +32,7 @@ export default new Router({
       component: AddPost
     },
     {
-      path: '/ModifyPost',
+      path: '/ModifyPost/:id',
       name: 'ModifyPost',
       component: ModifyPost
     },
