@@ -1,19 +1,30 @@
 <template>
-  <ul>
-    <i class="fas fa-circle-notch"></i
-    >Online
-    <li v-for="contact in contacts" :key="contact.id">
-      <i class="fas fa-user"></i><br />
-      <div>{{ contact.name }}</div>
-    </li>
-  </ul>
+  <div>
+    <ul>
+      <i class="fas fa-circle-notch"></i
+      >Online
+      <li v-for="user in users" :key="user.id">
+        <!-- <i class="fas fa-user"></i><br /> -->
+        {{ user.first_name + " " + user.last_name }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
+import { getUsers } from "../api";
+
 export default {
-  name: "Contacts",
-  props: {
-    contacts: Array,
+  name: "Users",
+  data() {
+    return {
+      users: [],
+    };
+  },
+  created() {
+    getUsers().then((users) => {
+      this.users = users;
+    });
   },
 };
 </script>
@@ -27,10 +38,11 @@ ul {
   align-items: center;
   padding-bottom: 20px;
   border-radius: 4px;
-  border: 0.1px #ffffff70 solid;
   margin: 0;
   background-color: rgba(0, 0, 0, 0.92);
   color: white;
+  border: 0.1px #ffffff15 solid;
+  box-shadow: 1px 1px 5px rgb(255, 255, 255);
 }
 
 li {

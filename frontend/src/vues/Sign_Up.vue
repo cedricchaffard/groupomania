@@ -3,30 +3,25 @@
 <template>
   <div id="app">
     <HeaderNotConnected></HeaderNotConnected>
-    <div class="layout">
-      <h1>Sign Up</h1>
+    <div class="layout-page">
       <form @submit.prevent="submit()">
-        <div>
-          <div class="layout-form">
-            <label for="name">Username: </label>
-            <input type="text" name="name" id="name" required />
-          </div>
-          <div class="layout-form">
-            <label for="password">Password: </label>
-            <input type="text" name="password" id="password" required />
-          </div>
-          <div class="layout-form">
-            <label for="password-confirm">Confirm Password: </label>
-            <input
-              type="text"
-              name="password-confirm"
-              id="password-confirm"
-              required
-            />
-          </div>
-        </div>
+        <h1>Sign Up</h1>
+        <p v-if="errorMessage" class="error"></p>
+        <label for="name">Username:</label>
+        <input type="text" name="name" id="name" required />
+        <label for="password">Password:</label>
+        <input type="text" name="password" id="password" required />
+        <label for="password_confirm">Confirm Password: </label>
+        <input
+          type="text"
+          name="password-confirm"
+          id="password-confirm"
+          required
+        />
+        <button>
+          <router-link to="/LoginForm">Create Account</router-link>
+        </button>
       </form>
-      <button type="submit">Create Account</button>
     </div>
   </div>
 </template>
@@ -35,66 +30,93 @@
 import HeaderNotConnected from "../components/HeaderNotConnected";
 
 export default {
+  props: {
+    errorMessage: {
+      type: String,
+      default: "",
+    },
+  },
   components: {
     HeaderNotConnected,
+  },
+  methods: {
+    submit() {
+      this.$emit("submit", {
+        email: this.email,
+        password: this.password,
+        password_confirm: this.password_confirm,
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
-div {
-  color: white;
-}
-
-input {
-  width: 10%;
-  margin: 0.5vh;
-}
-
 #app {
   font-family: "Helvetica", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #ffffff;
+  color: #000000;
   background-color: rgb(0, 0, 0);
   padding-top: 150px;
 }
 
-.layout {
-  display: flex;
-  flex-direction: column;
+.layout-page {
   max-width: 1024px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
   background-image: url(../assets/images/background/businessman-touching-red-icon-connected.jpg);
   background-size: cover;
-  height: 100vh;
-  overflow: hidden;
-  align-items: center;
-  color: black;
+  padding-top: 150px;
 }
 h1 {
-  margin-top: 2vh;
+  font-size: 1.5em;
+  font-weight: 100;
 }
 
-.layout-form {
+form {
+  color: white;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  /* margin: 5px; */
-  width: 100%;
-  color: black;
-  background-color: brown;
-  padding: 1vh;
-}
-
-form{
+  border: 0.1px rgba(255, 255, 255, 0.39) solid;
+  padding: 2vh;
+  background-color: rgb(0, 0, 0);
+  border-radius: 4%;
   margin-bottom: 2vh;
 }
 
-input{
-  width: 45%;
+input {
+  width: 100%;
   border-radius: 4%;
 }
 
+img {
+  max-width: 100%;
+  opacity: 20%;
+  position: absolute;
+}
+
+button {
+  margin-top: 2vh;
+  z-index: 10000;
+}
+
+@media (max-width: 375px) {
+  .layout-page {
+    max-width: 375px;
+    margin: 0 4vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout-page {
+    max-width: 768px;
+    margin: 0 4vh;
+  }
+}
 </style>

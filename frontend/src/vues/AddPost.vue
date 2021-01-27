@@ -2,11 +2,15 @@
   <div id="app">
     <HeaderConnected></HeaderConnected>
     <div class="layout">
-      <h1>Add a new Post</h1>
-      <form id="app" @submit="checkForm">
+      <form id="app" @submit="checkForm" methode="post">
+        <h1>Add a new Post</h1>
         Titre<input type="text" name="title" v-model="title"/>
         Description<input type="text" name="texte" v-model="texte"/>
+        image<input type="file" name="image"/>
+        <div class="ctrl">
         <button>Ajouter</button>
+        <router-link to="/">Annuler</router-link>
+        </div>
       </form>
     </div>
   </div>
@@ -31,10 +35,11 @@ export default {
     checkForm: function (e) {
       e.preventDefault();
       if (this.title && this.texte) {
-        console.log(this.title, this.texte)
-        // TODO: Faire un appel POST /posts à l'API pour ajouter le post
-      // TODO: Faire une redirection vers App.vue
-        addPost({title: this.title, texte: this.texte}).then(() => {
+        const data = new FormData();
+        data.append('title', this.title);
+        data.append('description', this.texte);
+        data.append('image', e.target.image.files[0])
+        addPost(data).then(() => {
             this.$router.push('/');
         })
         
@@ -46,19 +51,40 @@ export default {
 </script>
 
 <style scoped>
+#app {
+  padding-top: 100px;
+}
 .layout {
-  /* border: 2px red solid; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  width: 10%;
   justify-content: center;
   align-items: center;
+}
+
+button {
+  text-decoration: none;
+  margin: 2vh;
+
+}
+form > input{
+  margin-bottom: 3vh;
+  border: .1px white solid;
+}
+
+@media (max-width: 375px){
+  #app{
+    padding-top: 0;
+  }
+  h1{
+margin-top: 10vh;
+  }
 }
 </style>
 

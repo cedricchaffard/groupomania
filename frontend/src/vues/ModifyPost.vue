@@ -2,11 +2,16 @@
   <div id="app">
     <HeaderConnected></HeaderConnected>
     <div class="layout">
-      <h1>Modify a new Post</h1>
       <form id="app" @submit="checkForm">
-        Titre<input type="text" name="title" v-model="title"/>
-        Description<input type="text" name="texte" v-model="texte"/>
-        <button>Modifier</button>
+        <h1>Modify a Post</h1>
+        Titre<input type="text" name="title" v-model="title" />
+        Description<input type="text" name="texte" v-model="texte" />
+        <img :src="`http://localhost:3000/images/${image}`" width="300" />
+        image<input type="file" name="image" />
+        <div class="controls">
+          <button>Modifier</button>
+          <router-link tag="mod" to="/">Annuler</router-link>
+        </div>
       </form>
     </div>
   </div>
@@ -17,36 +22,39 @@ import HeaderConnected from "../components/HeaderConnected";
 import { modifyPost, getPost } from "../api";
 
 export default {
-  name: "AddPost",
+  name: "ModifyPost",
   components: {
     HeaderConnected,
   },
   data() {
     return {
-      id: '',
-      title: '',
-      texte: ''
+      id: "",
+      title: "",
+      texte: "",
+      image: "",
     };
   },
-  created(){
-      const postId = this.$route.params.id      
-      getPost(parseInt(postId)).then((p) => {        
-        this.title = p.title;
-        this.texte = p.texte;
-        this.id = p.id;
-      })
+  created() {
+    const postId = this.$route.params.id;
+    getPost(parseInt(postId)).then((p) => {
+      this.title = p.title;
+      this.description = p.texte;
+      this.id = p.id;
+      this.image = p.image;
+    });
   },
-  methods:{
+  methods: {
     checkForm: function (e) {
       e.preventDefault();
       if (this.title && this.texte) {
-        console.log(this.title, this.texte)
-        // TODO: Faire un appel POST /posts à l'API pour ajouter le post
-      // TODO: Faire une redirection vers App.vue
-        modifyPost({id: this.id, title: this.title, texte: this.texte}).then(() => {
-            this.$router.push('/');
-        })
-        
+        const data = new FormData();
+        data.append("title", this.title);
+        data.append("description", this.texte);
+        data.append("image", e.target.image.files[0]);
+        modifyPost(this.id, data).then(() => {
+          this.$router.push("/");
+        });
+
         return true;
       }
     },
@@ -55,19 +63,45 @@ export default {
 </script>
 
 <style scoped>
+#app {
+  padding-top: 100px;
+}
 .layout {
-  /* border: 2px red solid; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  width: 10%;
   justify-content: center;
   align-items: center;
+}
+
+button {
+  text-decoration: none;
+  margin: 2vh;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 0.8em;
+}
+
+mod{
+  font-size: .8em;
+  cursor: default;
+}
+
+
+@media (max-width: 375px) {
+  #app {
+    padding-top: 0;
+  }
+  h1 {
+    margin-top: 10vh;
+  }
 }
 </style>
 

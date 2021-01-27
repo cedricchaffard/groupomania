@@ -1,7 +1,7 @@
 <template>
   <form @submit="submitComment">
     <div class="conteneur_modal">
-      Créer un commentaire {{ post.title}}
+      Créer un commentaire {{ post.title }}
       <label for="commentaire"></label>
       <input
         type="text"
@@ -13,7 +13,7 @@
       />
       <div class="publish_layout">
         <button type="submit" class="publish">Publier</button>
-        </div>
+      </div>
     </div>
     <div class="background_modal" @click="close"></div>
   </form>
@@ -29,9 +29,9 @@ export default {
   },
   methods: {
     submitComment(e) {
-      e.preventDefault()
-      this.addComment(this.post.id, e.target.name.value)
-    }
+      e.preventDefault();
+      this.addComment(this.post.id, e.target.name.value);
+    },
   },
 };
 </script>
@@ -61,13 +61,36 @@ export default {
   z-index: 9999;
 }
 
-.publish_layout{
+.publish_layout {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 2vh;
 }
-.publish{
+.publish {
   width: 50%;
+}
+
+@media (max-width: 375px) {
+  .publish {
+    width: 100%;
+  }
+  .conteneur_modal {
+    width: 85%;
+    padding-right: 2vh;
+    padding-bottom: 0;
+    min-height: 200px;
+  }
+}
+@media (max-width: 768px) {
+  .publish {
+    width: 100%;
+  }
+  .conteneur_modal {
+    width: 50%;
+    padding-right: 2vh;
+    padding-bottom: 0;
+    min-height: 200px;
+  }
 }
 </style>

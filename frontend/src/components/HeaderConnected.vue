@@ -1,9 +1,16 @@
 <template>
   <header>
-    <div class="mask"></div>
+    <div class="mask">
+         <button class="add">
+      <router-link tag="mod" to="/AddPost">+ Add a new Post</router-link>
+         </button>
+         </div>
     <div class="layout">
-      <img
-        src="../assets/images/groupomania_Logos/icon-left-font-monochrome-black.png"/>
+      <a href="/">
+        <img
+          src="../assets/images/groupomania_Logos/icon-left-font-monochrome-black.png"
+        />
+      </a>
       <div class="infos">
         <Infos :infos="infos"> </Infos>
       </div>
@@ -14,6 +21,7 @@
       </div>
     </div>
   </header>
+   
 </template>
 
 <script>
@@ -31,12 +39,18 @@ export default {
 </script>
 
 <style scoped>
+.add {
+  display: none;
+}
 header {
   position: fixed;
   height: 150px;
-  z-index: 1000;
   top: 0;
   width: 100%;
+}
+
+header > .layout {
+  z-index: 10000;
 }
 
 .mask {
@@ -70,6 +84,31 @@ header .layout {
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+@media (max-width: 375px) {
+    .add {
+    display: initial;
+    font-size: 1em;
+    border: 0.1px #ffffff3a solid;
+    /* width: inherit; */
+    background-color: black;
+    color: white;
+    margin-bottom: 0;
+    margin-top: 2vh;
+  }
+  .mask {
+    background-color: rgba(0, 0, 0, 1);
+  }
+}
+.infos {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .infos {
+    display: none;
+  }
 }
 </style>

@@ -3,23 +3,13 @@
     <div class="mask"></div>
     <div class="layout">
       <img
-        src="../assets/images/groupomania_Logos/icon-left-font-monochrome-black.png"/>
-      <!-- <div class="infos">
-        <div class="connection">
-          <button>
-            <router-link to="/LoginForm">LOGIN</router-link>
-          </button>
-          <button class="signin">
-            <router-link to="/Sign_In">SIGN UP</router-link>
-          </button>
-        </div>
-      </div> -->
+        src="../assets/images/groupomania_Logos/icon-left-font-monochrome-black.png"
+      />
     </div>
   </header>
 </template>
 
 <script>
-
 export default {
   name: "HeaderNotConnected",
 };
@@ -33,6 +23,9 @@ header {
   top: 0;
   width: 100%;
   background-color: black;
+  max-width: 1024px;
+  margin: 0 ;
+  
 }
 
 .mask {
@@ -46,8 +39,7 @@ header {
 img {
   width: 200px;
   filter: invert(100%);
-    z-index: 1000;
-
+  z-index: 1000;
 }
 
 header .layout {
@@ -65,5 +57,12 @@ header .layout {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+img {
+  width: 300px;
+
+}
 }
 </style>

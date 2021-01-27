@@ -11,6 +11,7 @@
           :displayCommentModal="displayCommentModal"
           :displayCommentView="displayCommentView"
           :deletePost="deletePost"
+          :likePost="likePost"
         >
         </Posts>
       </div>
@@ -35,7 +36,14 @@ import Posts from "../components/Posts";
 import Photos from "../components/Photos";
 import CommentModal from "../components/CommentModal";
 
-import { getContacts, getPosts, getInfos, getPhotos } from "../api";
+import {
+  getUsers,
+  getPosts,
+  getInfos,
+  getPhotos,
+  deletePost,
+  likePost,
+} from "../api";
 
 export default {
   name: "App",
@@ -61,7 +69,7 @@ export default {
     getPosts().then((posts) => {
       this.posts = posts;
     });
-    getContacts().then((contacts) => {
+    getUsers().then((contacts) => {
       this.contacts = contacts;
     });
     getInfos().then((infos) => {
@@ -73,25 +81,43 @@ export default {
   },
   methods: {
     displayCommentModal(post) {
-      this.commentPost=post;
+      this.commentPost = post;
       this.commentModalVisible = true;
       console.log(post);
     },
-    addComment(postId,comment) {
-      for (let i=0; i<this.posts.length; i++) {
-        if(this.posts[i].id === postId ) {
-          this.posts[i].commentaires.push(comment)
-          console.log(this.posts[i])
-          this.commentModalVisible=false
-          return
-        } 
+    addComment(postId, comment) {
+      for (let i = 0; i < this.posts.length; i++) {
+        if (this.posts[i].id === postId) {
+          this.posts[i].commentaires.push(comment);
+          console.log(this.posts[i]);
+          this.commentModalVisible = false;
+          return;
+        }
       }
-      console.log(postId,comment)
+      console.log(postId, comment);
     },
-    deletePost(postId){
+    deletePost(postId) {
       // Map, Reduce, Filter (MDN)
-      this.posts = this.posts.filter((p) => p.id !== postId);
-    }
+      if (confirm("Etes-vous sur de vouloir supprimer le post ?")) {
+        deletePost(postId).then(() => {
+          this.posts = this.posts.filter((p) => p.id !== postId);
+        });
+      }
+    },
+    likePost(postId) {
+      //Je fais lq requete ajax pour liker un post
+      likePost(postId).then((res) => {
+        for (let i = 0; i < this.posts.length; i++) {
+          if (this.posts[i].id === postId) {
+            this.posts[i]["liked"] = res.status === 201;
+            this.posts[i]["likes"] =
+              res.status === 201
+                ? this.posts[i]["likes"] + 1
+                : this.posts[i]["likes"] - 1;
+          }
+        }
+      });
+    },
   },
 };
 </script>
@@ -132,5 +158,29 @@ header {
 .photos {
   margin-right: 0;
   margin-left: auto;
+}
+
+@media (max-width: 375px) {
+  .photos {
+    visibility: hidden;
+  }
+  .aside {
+    visibility: hidden;
+  }
+  .post {
+    max-width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  #app {
+    background-color: black;
+    min-height: 100%;
+  }
+  .photos {
+    display: none;
+  }
+  .aside {
+    display: none;
+  }
 }
 </style>

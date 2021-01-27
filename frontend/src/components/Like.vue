@@ -1,40 +1,47 @@
 <template>
   <div class="likes">
-    <i @click="add()" class="fas fa-heart"></i>
-    <div>{{ likes }} likes</div>
+    <i
+      @click="likePost()"
+      class="fas fa-heart"
+      :class="{ liked: isPostLiked }"
+    ></i>
+    <div class="like-count">{{ likes }}</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Like",
-  data() {
-    return {
-      likes: 0,
-    };
-  },
-  methods: {
-    add() {
-      this.likes += 1;
-    },
+  props: {
+    likePost: Function,
+    isPostLiked: Boolean,
+    likes: Number,
   },
 };
 </script>
 
 <style scoped>
-i {
-  height: 20px;
-  width: 20px;
-  color: black;
+.fas {
+  color: white;
+  margin-right: 1vh;
+  font-size: .8em;
 }
 
-.fas:active {
+.fas.liked {
   color: red;
-  margin-right: 0;
+  margin: 0;
+  margin-right: 1vh;
 }
-.likes {
-  display: flex;
-  justify-content: space-between;
-  width: 8vh;
+
+.like-count{
+  font-size: .8em;
+padding-right: 1vh;
+}
+
+@media (max-width: 768px) {
+  .likes {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }
 </style>
