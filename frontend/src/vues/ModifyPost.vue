@@ -8,9 +8,11 @@
         Description<input type="text" name="texte" v-model="texte" />
         <img :src="`http://localhost:3000/images/${image}`" width="300" />
         image<input type="file" name="image" />
+        Publication 
+        <tinymce id="d1" v-model="about"></tinymce>
         <div class="controls">
           <button>Modifier</button>
-          <router-link tag="mod" to="/">Annuler</router-link>
+          <router-link tag="mod" to="/" class="cancel">Annuler</router-link>
         </div>
       </form>
     </div>
@@ -19,18 +21,21 @@
 
 <script>
 import HeaderConnected from "../components/HeaderConnected";
+import tinymce from "vue-tinymce-editor";
 import { modifyPost, getPost } from "../api";
 
 export default {
   name: "ModifyPost",
   components: {
     HeaderConnected,
+    tinymce: tinymce,
   },
   data() {
     return {
       id: "",
       title: "",
       texte: "",
+      about: "",
       image: "",
     };
   },
@@ -41,6 +46,7 @@ export default {
       this.description = p.texte;
       this.id = p.id;
       this.image = p.image;
+      this.about = p.about;
     });
   },
   methods: {
@@ -50,6 +56,7 @@ export default {
         const data = new FormData();
         data.append("title", this.title);
         data.append("description", this.texte);
+        data.append("publication", this.about);
         data.append("image", e.target.image.files[0]);
         modifyPost(this.id, data).then(() => {
           this.$router.push("/");
@@ -70,7 +77,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 form {
@@ -81,6 +88,14 @@ form {
 }
 
 button {
+  text-decoration: none;
+  margin: 2vh;
+  background-color: black;
+  color: white;
+  border: none;
+  font-size: 0.8em;
+}
+.cancel {
   text-decoration: none;
   margin: 2vh;
   background-color: black;

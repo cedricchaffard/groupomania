@@ -1,15 +1,27 @@
 <template>
   <ul>
     <li v-for="post in posts" :key="post.id">
-      <input class="menu-checkbox" type="checkbox" id="menu-checkbox"/>
+      <input class="menu-checkbox" type="checkbox" id="menu-checkbox" />
       <i class="fas fa-ellipsis-h"></i>
       <div class="title">
         {{ post.title }}
-        <div class="date">{{ format_date(post.created) }}</div>
+        <div v-if="post.description" class="txtpost">
+          {{ post.description }}
+          <div class="date">{{ format_date(post.created) }}</div>
+        </div>
+        <img
+          @click="displayPictureModal(post)"
+          v-if="post.image"
+          :src="postimage(post.image)"
+          class="image"
+        />
       </div>
-      <img v-if="post.image" :src="postimage(post.image)" />
-      <div v-if="post.description" class="txtpost">
-        {{ post.description }}
+      <div
+        v-if="post.publication"
+        class="publication"
+        v-html="post.publication"
+      >
+        {{ post.publication }}
       </div>
       <div class="actions">
         <button @click="displayCommentModal(post)" class="comment">
@@ -67,6 +79,7 @@ export default {
   props: {
     posts: Array,
     displayCommentModal: Function,
+    displayPictureModal: Function,
     deletePost: Function,
     likePost: Function,
   },
@@ -96,7 +109,6 @@ export default {
   text-transform: uppercase;
   text-align: left;
 }
-
 .date {
   font-size: 0.8em;
   font-weight: 100;
@@ -111,9 +123,7 @@ ul {
   min-width: 300px;
   margin: 0 30px;
 }
-
 li {
-  /* padding: 20px 0px 0px 0px; */
   width: 100%;
   border-radius: 4px;
   position: relative;
@@ -123,7 +133,6 @@ li {
   margin-left: 0;
   margin-bottom: 1vh;
 }
-
 .actions {
   display: flex;
   justify-content: space-around;
@@ -133,65 +142,61 @@ li {
   border-radius: 4px;
   margin-bottom: 0;
 }
-
 nav {
   text-decoration: none;
 }
-
 i {
   height: 20px;
   width: 20px;
   color: black;
 }
-
 .far {
   color: white;
 }
-
 .txtpost {
   margin: 10px 0;
   font-weight: 100;
   font-size: 0.9em;
   text-align: left;
+}
+.publication {
+  margin: 1vh 0 2vh 0;
+  font-weight: 100;
+  font-size: 0.9em;
+  text-align: left;
   padding-left: 1vh;
 }
-
 a {
   text-decoration: none;
 }
-
 .fas:active {
   color: red;
   margin-right: 0;
 }
-
 .likes {
   display: flex;
 }
-
 button {
   background-color: black;
   color: white;
   border-radius: 4px;
   border: none;
 }
-
 img {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
   z-index: 1000;
 }
-
-.menu-checkbox{
+.menu-checkbox {
   display: none;
 }
 
 @media (max-width: 375px) {
-input{
-  opacity: 0;
-}
-  .menu-checkbox{
+  input {
+    opacity: 0;
+  }
+  .menu-checkbox {
     display: inherit;
     position: absolute;
     right: 5px;
@@ -200,14 +205,13 @@ input{
     width: 10px;
     height: 10px;
   }
-  .fas{
+  .fas {
     color: white;
-    font-size: .8em;
+    font-size: 0.8em;
     position: absolute;
     right: 5px;
     top: 5px;
   }
-
   .post {
     width: 100%;
   }
@@ -234,8 +238,8 @@ input{
   }
   .menu-checkbox:checked ~ .actions {
     display: inherit;
-}
-  span{
+  }
+  span {
     display: none;
   }
   button {
@@ -255,8 +259,7 @@ input{
     width: 100%;
     padding-left: 2vh;
   }
-
-  .txtpost{
+  .txtpost {
     width: 100%;
   }
 }
@@ -285,12 +288,10 @@ input{
     align-items: center;
   }
   .actions {
-    /* flex-direction: column; */
     width: 100%;
     margin-top: 2vh;
     border: none;
   }
-
   button {
     background-color: black;
     color: white;

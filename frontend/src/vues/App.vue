@@ -10,6 +10,7 @@
           :posts="posts"
           :displayCommentModal="displayCommentModal"
           :displayCommentView="displayCommentView"
+          :displayPictureModal="displayPictureModal"
           :deletePost="deletePost"
           :likePost="likePost"
         >
@@ -26,6 +27,12 @@
       :close="() => (commentModalVisible = false)"
     >
     </CommentModal>
+    <PictureModal
+      v-if="pictureModalVisible"
+      :post="photoPost"
+      :close="() => (pictureModalVisible = false)"
+   >
+    </PictureModal>
   </div>
 </template>
 
@@ -35,6 +42,7 @@ import Contacts from "../components/Contacts";
 import Posts from "../components/Posts";
 import Photos from "../components/Photos";
 import CommentModal from "../components/CommentModal";
+import PictureModal from "../components/PictureModal";
 
 import {
   getUsers,
@@ -53,6 +61,7 @@ export default {
     Contacts,
     Photos,
     CommentModal,
+    PictureModal,
   },
   data() {
     return {
@@ -62,6 +71,7 @@ export default {
       photos: [],
       commentModalVisible: false,
       commentPost: null,
+      pictureModalVisible: false,
     };
   },
   created() {
@@ -83,7 +93,6 @@ export default {
     displayCommentModal(post) {
       this.commentPost = post;
       this.commentModalVisible = true;
-      console.log(post);
     },
     addComment(postId, comment) {
       for (let i = 0; i < this.posts.length; i++) {
@@ -94,7 +103,10 @@ export default {
           return;
         }
       }
-      console.log(postId, comment);
+    },
+    displayPictureModal(post) {
+      this.photoPost = post;
+      this.pictureModalVisible = true;
     },
     deletePost(postId) {
       // Map, Reduce, Filter (MDN)

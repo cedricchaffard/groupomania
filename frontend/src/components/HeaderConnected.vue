@@ -1,10 +1,10 @@
 <template>
   <header>
     <div class="mask">
-         <button class="add">
-      <router-link tag="mod" to="/AddPost">+ Add a new Post</router-link>
-         </button>
-         </div>
+      <button class="add">
+        <router-link tag="mod" to="/AddPost">+ Add a new Post</router-link>
+      </button>
+    </div>
     <div class="layout">
       <a href="/">
         <img
@@ -15,13 +15,10 @@
         <Infos :infos="infos"> </Infos>
       </div>
       <div class="logout">
-        <button>
-          <router-link to="/LoginForm">Log Out</router-link>
-        </button>
+        <button @click="logout">Log Out</button>
       </div>
     </div>
   </header>
-   
 </template>
 
 <script>
@@ -35,6 +32,12 @@ export default {
   props: {
     infos: Array,
   },
+  methods: {
+    logout() {
+      localStorage.removeItem("groupomania_token");
+      this.$router.push("/LoginForm");
+    },
+  },
 };
 </script>
 
@@ -47,9 +50,13 @@ header {
   height: 150px;
   top: 0;
   width: 100%;
+  background-color: black;
 }
 
-header > .layout {
+.layout {
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
   z-index: 10000;
 }
 
@@ -64,12 +71,6 @@ header > .layout {
 img {
   width: 200px;
   filter: invert(100%);
-}
-
-header .layout {
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
 }
 
 .infos {
@@ -88,7 +89,7 @@ a {
 }
 
 @media (max-width: 375px) {
-    .add {
+  .add {
     display: initial;
     font-size: 1em;
     border: 0.1px #ffffff3a solid;
@@ -101,14 +102,11 @@ a {
   .mask {
     background-color: rgba(0, 0, 0, 1);
   }
-}
-.infos {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .infos {
+  #slideshow{
     display: none;
+  }
+  .layout{
+    margin: 0 1vh;
   }
 }
 </style>

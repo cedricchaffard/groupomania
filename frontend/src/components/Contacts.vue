@@ -2,7 +2,7 @@
   <div>
     <ul>
       <i class="fas fa-circle-notch"></i
-      >Online
+      ><h1>Collaborateurs inscrits</h1>
       <li v-for="user in users" :key="user.id">
         <!-- <i class="fas fa-user"></i><br /> -->
         {{ user.first_name + " " + user.last_name }}
@@ -30,6 +30,10 @@ export default {
 </script>
 
 <style scoped>
+h1{
+    font-size: 1em;
+    display: inline;
+}
 ul {
   list-style: none;
   padding-left: 0;
@@ -43,6 +47,8 @@ ul {
   color: white;
   border: 0.1px #ffffff15 solid;
   box-shadow: 1px 1px 5px rgb(255, 255, 255);
+  height: 25vh;
+  overflow-y: scroll;
 }
 
 li {

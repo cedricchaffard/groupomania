@@ -21,7 +21,7 @@ exports.createPost = (req, res, next) => {
         filename = req.file.filename;
     }
     //const filename = req.file ? req.file.filename : ''
-    connection.query('INSERT INTO post(title, description, image, created) VALUES(?,?,?,NOW())', [req.body.title, req.body.description, filename],
+    connection.query('INSERT INTO post(title, description, publication, image, created) VALUES(?,?,?,?,NOW())', [req.body.title, req.body.description, req.body.publication, filename],
         function(err, results) {
             if (err) {
                 res.status(500).json({ error: "Erreur à l'insertion" })
@@ -47,7 +47,7 @@ exports.modifyPost = (req, res, next) => {
             }
 
             connection.query(
-                'UPDATE post SET title = ?, description = ?, image = ? WHERE id = ?', [req.body.title, req.body.description, filename, req.params.id],
+                'UPDATE post SET title = ?, description = ?, publication = ?, image = ? WHERE id = ?', [req.body.title, req.body.description, req.body.publication, filename, req.params.id],
                 function(err, results) {
                     if (err) {
                         res.status(500).json({ error: "Erreur à la modification", err })
@@ -108,6 +108,7 @@ LEFT JOIN `like` ON `like`.post_id = post.id
                 results[i]['liked'] = false;
             }*/
             res.status(200).json(results)
+            return;
 
         }
     )
@@ -149,42 +150,3 @@ exports.likePost = (req, res, next) => {
             }
         });
 }
-
-// exports.likePost = (req, res, next) => {
-//     if (req.body.like === 1) {
-//         Post.updateOne({ _id: req.params.id }, { $push: { usersLiked: req.body.userId }, $inc: { likes: 1 } })
-//             .then((post) => {
-//                 res.status(200).json({
-//                     message: 'Like modifié !'
-//                 })
-//             })
-//             .catch(error => res.status(400).json({ error }));
-//     } else if (req.body.like === -1) {
-//         Post.updateOne({ _id: req.params.id }, { $push: { usersDisliked: req.body.userId }, $inc: { dislikes: 1 } })
-//             .then((post) => {
-//                 res.status(200).json({
-//                     message: 'Like modifié !'
-//                 })
-//             })
-//     } else {
-//         Post.findOne({ _id: req.params.id })
-//             .then((post) => {
-//                 if (post.usersLiked.includes(req.body.userId)) {
-//                     Post.updateOne({ _id: req.params.id }, { $pull: { usersLiked: req.body.userId }, $inc: { likes: -1 } })
-//                         .then((post) => {
-//                             res.status(200).json({
-//                                 message: 'Like modifié !'
-//                             })
-//                         })
-//                 } else {
-//                     Post.updateOne({ _id: req.params.id }, { $pull: { usersDisliked: req.body.userId }, $inc: { dislikes: -1 } })
-//                         .then((post) => {
-//                             res.status(200).json({
-//                                 message: 'Like modifié !'
-//                             })
-//                         })
-
-//                 }
-//             })
-//     }
-// }

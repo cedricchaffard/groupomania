@@ -1,7 +1,7 @@
 <template>
   <form @submit="submitComment">
     <div class="conteneur_modal">
-      Créer un commentaire {{ post.title }}
+      Créer un commentaire : {{ post.title }}
       <label for="commentaire"></label>
       <input
         type="text"
@@ -13,6 +13,7 @@
       />
       <div class="publish_layout">
         <button type="submit" class="publish">Publier</button>
+        <router-link to="/" class="cancel">Annuler</router-link>
       </div>
     </div>
     <div class="background_modal" @click="close"></div>
@@ -38,7 +39,7 @@ export default {
 
 <style scoped>
 .conteneur_modal {
-  width: 25%;
+  width: 30%;
   min-height: 300px;
   background-color: white;
   z-index: 10000;
@@ -47,9 +48,28 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   color: black;
-  padding: 1vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+input {
+  max-width: 80%;
+  min-height: 150px;
+}
+input:placeholder-shown {
+  top: 0;
+}
+button {
+  background-color: rgb(255, 255, 255);
+  border: none;
+}
+.cancel {
+  text-decoration: none;
+  margin: 2vh;
+  color: black;
+  font-size: 0.8em;
+  cursor: default;
 }
 .background_modal {
   position: fixed;
@@ -60,21 +80,14 @@ export default {
   left: 0;
   z-index: 9999;
 }
-
 .publish_layout {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+
+  align-items: stretch;
   margin-top: 2vh;
-}
-.publish {
-  width: 50%;
 }
 
 @media (max-width: 375px) {
-  .publish {
-    width: 100%;
-  }
   .conteneur_modal {
     width: 85%;
     padding-right: 2vh;
@@ -82,6 +95,7 @@ export default {
     min-height: 200px;
   }
 }
+
 @media (max-width: 768px) {
   .publish {
     width: 100%;

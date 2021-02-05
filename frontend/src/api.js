@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 export const getPosts = () => {
-    return axios.get('http://localhost:3000/api/posts')
+    const token = localStorage.getItem('groupomania_token')
+    return axios.get('http://localhost:3000/api/posts', {
+            headers: { Authorization: 'Bearer ' + token }
+        })
         .then(function(d) {
             return d.data
         })
@@ -9,14 +12,21 @@ export const getPosts = () => {
 
 
 export const getPost = (postId) => {
-    return axios.get('http://localhost:3000/api/posts/' + postId, { headers: { 'Content-Type': "multipart/form-data" } })
+    const token = localStorage.getItem('groupomania_token')
+    return axios.get('http://localhost:3000/api/posts/' + postId, {
+            headers: {
+                'Content-Type': "multipart/form-data",
+                Authorization: 'Bearer ' + token
+            }
+        })
         .then(function(d) {
             return d.data
         })
 }
 
 export const addPost = (post) => {
-    return axios.post('http://localhost:3000/api/posts', post, { headers: { 'Content-Type': "multipart/form-data" } })
+    const token = localStorage.getItem('groupomania_token')
+    return axios.post('http://localhost:3000/api/posts', post, { headers: { 'Content-Type': "multipart/form-data", Authorization: 'Bearer ' + token } })
         // TODO axios.post(url, data du post)
         .then(function(reponse) {
             return reponse.data
@@ -26,38 +36,57 @@ export const addPost = (post) => {
 }
 
 export const modifyPost = (postId, post) => {
-    //TODO axios.put
-    return axios.put('http://localhost:3000/api/posts/' + postId, post, { headers: { 'Content-Type': "multipart/form-data" } })
+    const token = localStorage.getItem('groupomania_token')
+    return axios.put('http://localhost:3000/api/posts/' + postId, post, { headers: { 'Content-Type': "multipart/form-data", Authorization: 'Bearer ' + token } })
         .then(function(reponse) {
             return reponse.data
         });
 }
 
 export const getUsers = () => {
-    return axios.get('http://localhost:3000/api/users')
+    const token = localStorage.getItem('groupomania_token')
+    return axios.get('http://localhost:3000/api/users', {
+            headers: { Authorization: 'Bearer ' + token }
+        })
         .then(function(d) {
             return d.data
         })
 }
 
 export const getInfos = () => {
-    return axios.get('http://localhost:3000/api/posts')
+    const token = localStorage.getItem('groupomania_token')
+    return axios.get('http://localhost:3000/api/posts', {
+            headers: { Authorization: 'Bearer ' + token }
+        })
         .then(function(d) {
             return d.data
         })
 }
 
 export const getPhotos = () => {
-    return axios.get('http://localhost:3000/api/posts')
+    const token = localStorage.getItem('groupomania_token')
+    return axios.get('http://localhost:3000/api/posts', {
+            headers: { Authorization: 'Bearer ' + token }
+        })
         .then(function(d) {
             return d.data
         })
 }
 
 export const deletePost = (postId) => {
-    return axios.delete('http://localhost:3000/api/posts/' + postId)
+    const token = localStorage.getItem('groupomania_token')
+    return axios.delete('http://localhost:3000/api/posts/' + postId, {
+        headers: { Authorization: 'Bearer ' + token }
+    })
 }
 
 export const likePost = (postId) => {
-    return axios.post('http://localhost:3000/api/posts/' + postId + '/like')
+    const token = localStorage.getItem('groupomania_token')
+    return axios.post('http://localhost:3000/api/posts/' + postId + '/like', {
+        headers: { Authorization: 'Bearer ' + token }
+    })
+}
+
+export const signin = (user) => {
+    return axios.post('http://localhost:3000/api/users/login', user)
 }

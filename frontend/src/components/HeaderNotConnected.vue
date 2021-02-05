@@ -23,9 +23,6 @@ header {
   top: 0;
   width: 100%;
   background-color: black;
-  max-width: 1024px;
-  margin: 0 ;
-  
 }
 
 .mask {
@@ -40,12 +37,17 @@ img {
   width: 200px;
   filter: invert(100%);
   z-index: 1000;
+  margin: 0;
 }
 
-header .layout {
+.layout {
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  display: flex;
+  max-width: 1024px;
+  margin: auto;
+  z-index: 10000;
 }
 
 .infos {
@@ -59,10 +61,15 @@ header .layout {
   margin-bottom: 10px;
 }
 
-@media (min-width: 768px) {
-img {
-  width: 300px;
+@media (max-width: 375px){
+  img{
+      margin-left: 4vh;
+  }
+}
+@media (max-width: 768px) {
+  img{
+      margin-left: 4vh;
+  }
+}
 
-}
-}
 </style>

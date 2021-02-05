@@ -23,6 +23,7 @@
 
 <script>
 import HeaderNotConnected from "../components/HeaderNotConnected";
+import { signin } from "../api";
 
 export default {
   props: {
@@ -36,10 +37,18 @@ export default {
   },
   methods: {
     submit() {
-      this.$emit("submit", {
+      signin({
         email: this.email,
         password: this.password,
-      });
+      }).then(
+        (res) => {
+          localStorage.setItem("groupomania_token", res.data.token);
+          this.$router.push("/");
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     },
   },
 };
@@ -49,12 +58,10 @@ export default {
 .error {
   color: tomato;
 }
-
 h1 {
   font-size: 1.5em;
   font-weight: 100;
 }
-
 #app {
   font-family: "Helvetica", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -64,7 +71,6 @@ h1 {
   background-color: rgb(0, 0, 0);
   padding-top: 150px;
 }
-
 .layout-page {
   max-width: 1024px;
   margin: auto;
@@ -87,23 +93,19 @@ form {
   border-radius: 4%;
   margin-bottom: 2vh;
 }
-
 img {
   max-width: 100%;
   opacity: 20%;
   position: absolute;
 }
-
 .create_account {
   margin-bottom: 2vh;
   z-index: 100000;
 }
-
 button {
   margin-top: 2vh;
   z-index: 10000;
 }
-
 .login {
   margin-bottom: 10vh;
 }
@@ -112,26 +114,23 @@ button {
   .layout-page {
     max-width: 375px;
     margin: 0 4vh;
+    padding-top: 50px;
   }
-
   .create_account {
-    /* color: black; */
     font-weight: 600;
   }
 }
+
 @media (max-width: 768px) {
   .layout-page {
     max-width: 768px;
     margin: 0 4vh;
+    padding-top: 50px;
   }
-
   form {
     padding: 0 2vh 0 2vh;
-    /* width: 30vh; */
   }
-
   .create_account {
-    /* color: black; */
     font-weight: 600;
   }
   button {

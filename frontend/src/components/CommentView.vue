@@ -2,12 +2,12 @@
   <div>
     <div class="layoutComment">
       <div class="crossLayout">
-      <div class="cross">
-      <div class="close" @click="close"><i class="fas fa-times"></i></div>
-      </div>
+        <div class="cross">
+          <div class="close" @click="close"><i class="fas fa-times"></i></div>
+        </div>
       </div>
       <div class="view_comment">
-        <p v-for="comment in comments" :key="comment"> {{ comment }}</p>
+        <p v-for="comment in comments" :key="comment">{{ comment }}</p>
       </div>
     </div>
   </div>
@@ -35,18 +35,16 @@ export default {
   border: 0.5px solid black;
   border-radius: 4px;
   height: 10vh;
-
 }
-.cross{
-width: 2vh;
+.cross {
+  width: 2vh;
   display: flex;
-justify-content: center;
-
+  justify-content: center;
+  padding-right: 2vh;
 }
-
-.crossLayout{
+.crossLayout {
   display: flex;
-justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .close {
@@ -59,7 +57,14 @@ p {
   font-size: 0.8em;
 }
 
-@media (max-width: 375px){
+@media (max-width: 375px) {
+  .layoutComment {
+margin-top: 0;
 
+  border: 0.5px solid black;
+  border-radius: 4px;
+  /* height: 10vh; */
+  width: 100%;
+}
 }
 </style>

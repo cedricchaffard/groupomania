@@ -6,6 +6,6 @@ import "@fortawesome/fontawesome-free/css/all.css"
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  render: h => h(AuthWrapper),
+    router,
+    render: h => h(AuthWrapper),
 }).$mount('#app')

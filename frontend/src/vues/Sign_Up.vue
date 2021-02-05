@@ -110,6 +110,7 @@ button {
   .layout-page {
     max-width: 375px;
     margin: 0 4vh;
+    padding-top: 50px;
   }
 }
 
