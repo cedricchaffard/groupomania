@@ -33,14 +33,14 @@ exports.login = (req, res, next) => {
                 res.status(401).json({ status: 'KO', error: 'User not found' })
             }
             const user = results[0]
+
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
                         return res.status(401).json({ status: 'KO', error: 'Mot de passe incorect ! ' });
                     }
                     res.status(200).json({
-                        userId: user._id,
-                        token: jwt.sign({ userId: user.id },
+                        token: jwt.sign({ userId: user.id, admin: user.admin },
                             'RANDOM_TOKEN_SECRET', { expiresIn: '24h' }
                         )
                     });

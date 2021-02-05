@@ -32,7 +32,7 @@
           <i class="far fa-comments"></i>
           <span>Voir les commentaires</span>
         </button>
-        <button class="modify">
+        <button class="modify" v-if="post.editable">
           <router-link
             tag="mod"
             :to="{ name: 'ModifyPost', params: { id: post.id } }"
@@ -40,7 +40,7 @@
             <span>Modifier</span>
           </router-link>
         </button>
-        <button @click="deletePost(post.id)" class="delete">
+        <button @click="deletePost(post.id)" class="delete" v-if="post.editable">
           <i class="far fa-trash-alt"></i>
           <span>Supprimer</span>
         </button>

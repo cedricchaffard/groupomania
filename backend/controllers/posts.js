@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const fs = require('fs');
 // const { json } = require('body-parser');
 const mysql = require('mysql2');
+const jwt = require('jsonwebtoken');
 // const { title } = require('process');
 // const { post } = require('../app');
 
@@ -31,6 +32,7 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.modifyPost = (req, res, next) => {
+    //TODO Vérif de droit: Je suis admin ou l'auteur de post sinon 401
     connection.query(
         'SELECT * FROM post WHERE id = ?', [req.params.id],
         function(err, results) {
@@ -60,6 +62,7 @@ exports.modifyPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
+    //TODO Vérif de droit: Je suis admin ou l'auteur de post sinon 401
     // DELETE FROM posts WHERE id = ?
     // TODO: Si image uploadée, la supprimer du serveur
     connection.query(
@@ -96,6 +99,11 @@ FROM post
 LEFT JOIN `like` ON `like`.post_id = post.id
     */
 
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
+    const admin = decodedToken.admin;
+
     connection.query(
         "SELECT post.*, (SELECT count(*) FROM `like` WHERE `like`.post_id = post.id) as likes, (SELECT `like`.user_id = ? FROM `like` WHERE user_id = ? AND post_id = post.id) as liked FROM post", [1, 1],
         function(err, results) {
@@ -103,10 +111,9 @@ LEFT JOIN `like` ON `like`.post_id = post.id
                 res.status(500).json(err)
             }
 
-            /*for (let i = 0; i < results.length; i++) {
-                results[i]['likes'] = 0;
-                results[i]['liked'] = false;
-            }*/
+            for (let i = 0; i < results.length; i++) {
+                results[i]['editable'] = admin === 1; //TODO: Vérifier que je suis l'auteur du post
+            }
             res.status(200).json(results)
             return;
 
