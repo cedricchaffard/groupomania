@@ -89,6 +89,10 @@ input {
   border: 0.1px white solid;
   width: 100%;
 }
+a{
+  text-decoration: underline;
+  color: red;
+}
 
 @media (max-width: 375px) {
   #app {

@@ -40,14 +40,14 @@ ul {
   padding-top: 10px;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   border-radius: 4px;
   margin: 0;
   background-color: rgba(0, 0, 0, 0.92);
   color: white;
   border: 0.1px #ffffff15 solid;
   box-shadow: 1px 1px 5px rgb(255, 255, 255);
-  height: 25vh;
+  height: auto;
   overflow-y: scroll;
 }
 

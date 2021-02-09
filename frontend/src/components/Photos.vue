@@ -6,7 +6,7 @@
         <div v-if="photo.image">
           <img
             :src="'http://localhost:3000/images/' + photo.image"
-            width="100"
+            width="125"
           />
         </div>
       </li>

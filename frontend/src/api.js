@@ -27,12 +27,9 @@ export const getPost = (postId) => {
 export const addPost = (post) => {
     const token = localStorage.getItem('groupomania_token')
     return axios.post('http://localhost:3000/api/posts', post, { headers: { 'Content-Type': "multipart/form-data", Authorization: 'Bearer ' + token } })
-        // TODO axios.post(url, data du post)
         .then(function(reponse) {
             return reponse.data
-                //     return reponse.data
         });
-    // return Promise.resolve()
 }
 
 export const modifyPost = (postId, post) => {

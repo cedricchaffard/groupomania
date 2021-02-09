@@ -181,6 +181,10 @@ button {
   color: white;
   border-radius: 4px;
   border: none;
+  outline: 0;
+}
+button:active{
+  color: black;
 }
 img {
   margin-left: auto;
