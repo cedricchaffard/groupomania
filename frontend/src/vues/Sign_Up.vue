@@ -4,22 +4,29 @@
   <div id="app">
     <HeaderNotConnected></HeaderNotConnected>
     <div class="layout-page">
-      <form @submit.prevent="submit()">
+      <form @submit="submit">
         <h1>Sign Up</h1>
         <p v-if="errorMessage" class="error"></p>
-        <label for="name">Username:</label>
-        <input type="text" name="name" id="name" required />
+        <label for="name">Firstname:</label>
+        <input type="text" name="first_name" id="first_name" v-model="first_name" required />
+
+        <label for="name">Lastname:</label>
+        <input type="text" name="last_name" id="last_name" v-model="last_name" required />
+
+        <label for="name">Email:</label>
+        <input type="email" name="name" id="name" v-model="email" required />
         <label for="password">Password:</label>
-        <input type="text" name="password" id="password" required />
+        <input type="password" name="password" id="password" v-model="password" required />
         <label for="password_confirm">Confirm Password: </label>
         <input
-          type="text"
+          type="password"
           name="password-confirm"
           id="password-confirm"
+          v-model="password_confirm"
           required
         />
-        <button>
-          <router-link to="/LoginForm">Create Account</router-link>
+        <button type="submit">
+          Create Account
         </button>
       </form>
     </div>
@@ -28,6 +35,7 @@
 
 <script>
 import HeaderNotConnected from "../components/HeaderNotConnected";
+import { signup } from "../api";
 
 export default {
   props: {
@@ -39,13 +47,34 @@ export default {
   components: {
     HeaderNotConnected,
   },
+  data() {
+    return {
+      first_name: "",
+      last_name: "",
+      email: '',
+      password: '',
+      password_confirm: ''
+    }
+  },
   methods: {
-    submit() {
-      this.$emit("submit", {
+    submit(e) {      
+      e.preventDefault();
+      if(this.password !== this.password_confirm){
+        return;
+      }
+      signup({
+        first_name: this.first_name,
+        last_name: this.last_name,
         email: this.email,
         password: this.password,
-        password_confirm: this.password_confirm,
-      });
+      }).then(
+        () => {          
+          this.$router.push("/LoginForm");
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     },
   },
 };

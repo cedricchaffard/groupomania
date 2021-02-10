@@ -79,11 +79,36 @@ export const deletePost = (postId) => {
 
 export const likePost = (postId) => {
     const token = localStorage.getItem('groupomania_token')
-    return axios.post('http://localhost:3000/api/posts/' + postId + '/like', {
+    return axios.post('http://localhost:3000/api/posts/' + postId + '/like', {}, {
         headers: { Authorization: 'Bearer ' + token }
     })
 }
 
 export const signin = (user) => {
     return axios.post('http://localhost:3000/api/users/login', user)
+}
+
+export const signup = (user) => {
+    return axios.post('http://localhost:3000/api/users/signup', user)
+}
+
+export const updateProfile = (user) => {
+    const token = localStorage.getItem('groupomania_token')
+    return axios.put('http://localhost:3000/api/users', user, {
+        headers: { Authorization: 'Bearer ' + token }
+    })
+}
+
+export const deleteProfile = () => {
+    const token = localStorage.getItem('groupomania_token')
+    return axios.delete('http://localhost:3000/api/users', {
+        headers: { Authorization: 'Bearer ' + token }
+    })
+}
+
+export const getMe = () => {
+    const token = localStorage.getItem('groupomania_token')
+    return axios.get('http://localhost:3000/api/users/me', {
+        headers: { Authorization: 'Bearer ' + token }
+    })
 }

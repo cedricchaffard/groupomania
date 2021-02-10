@@ -31,8 +31,9 @@ exports.login = (req, res, next) => {
         function(err, results) {
             if (!results[0]) {
                 res.status(401).json({ status: 'KO', error: 'User not found' })
+                return;
             }
-            const user = results[0]
+            const user = results[0] || {}
 
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
@@ -59,6 +60,58 @@ exports.getUsers = (req, res, next) => {
             }
 
             res.status(200).json(results)
+
+        }
+    )
+};
+
+exports.getMe = (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
+    connection.query(
+        'SELECT * FROM `user` WHERE id = ?', [userId],
+        function(err, results) {
+            if (err) {
+                res.status(500).json(err)
+            }
+
+            res.status(200).json(results[0])
+
+        }
+    )
+};
+
+exports.updateProfile = (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
+
+    connection.query(
+        'UPDATE `user` SET first_name = ?, last_name = ?, email = ? WHERE id = ?', [req.body.first_name, req.body.last_name, req.body.email, userId],
+        function(err, results) {
+            if (err) {
+                res.status(500).json(err)
+            }
+
+            res.status(200).json(results)
+
+        }
+    )
+};
+
+exports.deleteProfile = (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
+    connection.query(
+        'DELETE FROM `user` WHERE id = ?', [userId],
+        function(err, results) {
+            if (err) {
+                res.status(500).json(err)
+            }
+
+            res.status(204).end();
 
         }
     )

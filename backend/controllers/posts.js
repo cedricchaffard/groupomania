@@ -4,6 +4,7 @@ const fs = require('fs');
 // const { json } = require('body-parser');
 const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
+const { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } = require('constants');
 // const { title } = require('process');
 // const { post } = require('../app');
 
@@ -17,12 +18,16 @@ const connection = mysql.createConnection({
 
 exports.createPost = (req, res, next) => {
 
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
+
     let filename = '';
     if (req.file) {
         filename = req.file.filename;
     }
     //const filename = req.file ? req.file.filename : ''
-    connection.query('INSERT INTO post(title, description, publication, image, created) VALUES(?,?,?,?,NOW())', [req.body.title, req.body.description, req.body.publication, filename],
+    connection.query('INSERT INTO post(title, description, publication, image, created, user_id) VALUES(?,?,?,?,NOW(), ?)', [req.body.title, req.body.description, req.body.publication, filename, userId],
         function(err, results) {
             if (err) {
                 res.status(500).json({ error: "Erreur à l'insertion" })
@@ -105,14 +110,14 @@ LEFT JOIN `like` ON `like`.post_id = post.id
     const admin = decodedToken.admin;
 
     connection.query(
-        "SELECT post.*, (SELECT count(*) FROM `like` WHERE `like`.post_id = post.id) as likes, (SELECT `like`.user_id = ? FROM `like` WHERE user_id = ? AND post_id = post.id) as liked FROM post", [1, 1],
+        "SELECT post.*, (SELECT count(*) FROM `like` WHERE `like`.post_id = post.id) as likes, (SELECT `like`.user_id = ? FROM `like` WHERE user_id = ? AND post_id = post.id) as liked FROM post", [userId, userId],
         function(err, results) {
             if (err) {
                 res.status(500).json(err)
             }
 
             for (let i = 0; i < results.length; i++) {
-                results[i]['editable'] = admin === 1; //TODO: Vérifier que je suis l'auteur du post
+                results[i]['editable'] = admin === 1 || results[i].user_id === userId;
             }
             res.status(200).json(results)
             return;
@@ -138,7 +143,9 @@ exports.getOnePost = (req, res, next) => {
 exports.likePost = (req, res, next) => {
     const postId = parseInt(req.params.id);
     //TODO: Récupérer le user id dans le token (voir auth plus tard)
-    const userId = 1;
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+    const userId = decodedToken.userId;
     connection.query(
         'INSERT INTO `like`(user_id, post_id) VALUES(?, ?)', [userId, postId],
         function(err, results) {

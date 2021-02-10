@@ -2,7 +2,7 @@
   <header>
     <div class="mask">
       <button class="add">
-        <router-link tag="mod" to="/AddPost">+ Add a new Post</router-link>
+        <router-link tag="mod" to="/AddPost">+ Ajouter un post</router-link>
       </button>
     </div>
     <div class="layout">
@@ -14,8 +14,9 @@
       <div class="infos">
         <Infos :infos="infos"> </Infos>
       </div>
-      <div class="logout">
-        <button @click="logout">Log Out</button>
+      <div>
+        <button @click="logout" class="logout">Déconnexion</button>
+        <router-link tag="a" to="/Profile" class="profile">Profile</router-link>
       </div>
     </div>
   </header>
@@ -87,6 +88,17 @@ img {
 a {
   text-decoration: none;
 }
+.logout {
+  background-color: black;
+  color: white;
+  border: none;
+}
+.profile{
+  color: white;
+  font-size: .8em;
+  margin-left: 2vh;
+  cursor: default;
+}
 
 @media (max-width: 375px) {
   .add {
@@ -102,10 +114,10 @@ a {
   .mask {
     background-color: rgba(0, 0, 0, 1);
   }
-  #slideshow{
+  #slideshow {
     display: none;
   }
-  .layout{
+  .layout {
     margin: 0 1vh;
   }
 }
