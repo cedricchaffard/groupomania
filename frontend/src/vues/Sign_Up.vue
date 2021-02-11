@@ -41,7 +41,10 @@
           v-model="password_confirm"
           required
         />
-        <button type="submit">Create Account</button>
+        <div class="buttonLayout">
+        <button type="submit" class="create">Create Account</button>
+        <router-link to="/LoginForm" class="cancel">Annuler</router-link>
+</div>
       </form>
     </div>
   </div>
@@ -147,6 +150,29 @@ img {
 button {
   margin-top: 2vh;
   z-index: 10000;
+}
+
+.buttonLayout{
+  display: flex;
+  margin-top: 2vh;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.create{
+  background-color: black;
+  color: white;
+  margin-bottom: 2vh;
+  border: none;
+  font-size: .8em;
+  cursor: pointer;
+  margin: 0;
+}
+
+.cancel{
+  color: white;
+  font-size: .8em;
+text-decoration: none;
 }
 
 @media (max-width: 375px) {
