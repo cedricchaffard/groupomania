@@ -1,10 +1,9 @@
 <template>
   <div>
     <ul>
-      <i class="fas fa-circle-notch"></i
-      ><h1>Collaborateurs inscrits</h1>
+      <i class="fas fa-circle-notch"></i>
+      <h1>Collaborateurs inscrits</h1>
       <li v-for="user in users" :key="user.id">
-        <!-- <i class="fas fa-user"></i><br /> -->
         {{ user.first_name + " " + user.last_name }}
       </li>
     </ul>
@@ -30,9 +29,9 @@ export default {
 </script>
 
 <style scoped>
-h1{
-    font-size: 1em;
-    display: inline;
+h1 {
+  font-size: 1em;
+  display: inline;
 }
 ul {
   list-style: none;
@@ -40,7 +39,6 @@ ul {
   padding-top: 10px;
   flex-direction: column;
   align-items: center;
-  /* padding-bottom: 20px; */
   border-radius: 4px;
   margin: 0;
   background-color: rgba(0, 0, 0, 0.92);

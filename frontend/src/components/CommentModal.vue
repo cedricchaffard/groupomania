@@ -1,7 +1,8 @@
 <template>
   <form @submit="submitComment">
     <div class="conteneur_modal">
-      Créer un commentaire : {{ post.title }}
+      Créer un commentaire pour : <br>
+      {{ post.title }}
       <label for="commentaire"></label>
       <input
         type="text"
@@ -13,7 +14,7 @@
       />
       <div class="publish_layout">
         <button type="submit" class="publish">Publier</button>
-        <router-link to="/" class="cancel">Annuler</router-link>
+        <button type="button" class="cancel" @click="close">Annuler</button>
       </div>
     </div>
     <div class="background_modal" @click="close"></div>

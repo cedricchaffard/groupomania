@@ -7,16 +7,32 @@
       <form @submit="submit">
         <h1>Sign Up</h1>
         <p v-if="errorMessage" class="error"></p>
-        <label for="name">Firstname:</label>
-        <input type="text" name="first_name" id="first_name" v-model="first_name" required />
-
-        <label for="name">Lastname:</label>
-        <input type="text" name="last_name" id="last_name" v-model="last_name" required />
-
-        <label for="name">Email:</label>
-        <input type="email" name="name" id="name" v-model="email" required />
+        <label for="first_name">Firstname:</label>
+        <input
+          type="text"
+          name="first_name"
+          id="first_name"
+          v-model="first_name"
+          required
+        />
+        <label for="last_name">Lastname:</label>
+        <input
+          type="text"
+          name="last_name"
+          id="last_name"
+          v-model="last_name"
+          required
+        />
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" v-model="email" required />
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" v-model="password" required />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+          required
+        />
         <label for="password_confirm">Confirm Password: </label>
         <input
           type="password"
@@ -25,9 +41,7 @@
           v-model="password_confirm"
           required
         />
-        <button type="submit">
-          Create Account
-        </button>
+        <button type="submit">Create Account</button>
       </form>
     </div>
   </div>
@@ -51,15 +65,15 @@ export default {
     return {
       first_name: "",
       last_name: "",
-      email: '',
-      password: '',
-      password_confirm: ''
-    }
+      email: "",
+      password: "",
+      password_confirm: "",
+    };
   },
   methods: {
-    submit(e) {      
+    submit(e) {
       e.preventDefault();
-      if(this.password !== this.password_confirm){
+      if (this.password !== this.password_confirm) {
         return;
       }
       signup({
@@ -68,7 +82,7 @@ export default {
         email: this.email,
         password: this.password,
       }).then(
-        () => {          
+        () => {
           this.$router.push("/LoginForm");
         },
         (err) => {

@@ -93,9 +93,9 @@ a {
   color: white;
   border: none;
 }
-.profile{
+.profile {
   color: white;
-  font-size: .8em;
+  font-size: 0.8em;
   margin-left: 2vh;
   cursor: default;
 }
@@ -105,7 +105,6 @@ a {
     display: initial;
     font-size: 1em;
     border: 0.1px #ffffff3a solid;
-    /* width: inherit; */
     background-color: black;
     color: white;
     margin-bottom: 0;

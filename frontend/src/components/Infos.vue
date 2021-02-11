@@ -66,7 +66,7 @@ a:hover {
   white-space: nowrap;
   animation: defilement-rtl 15s infinite linear;
   animation-name: AutoSlide;
-  animation-duration: 20s;
+  animation-duration: 45s;
   animation-iteration-count: infinite;
   margin: 0;
 }

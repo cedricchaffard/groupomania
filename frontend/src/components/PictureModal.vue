@@ -28,7 +28,6 @@ export default {
 .conteneur_modal {
   width: 80%;
   min-height: 600px;
-  /* background-color: white; */
   z-index: 10000;
   position: fixed;
   top: 50%;

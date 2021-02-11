@@ -1,12 +1,8 @@
 const bcrypt = require('bcrypt');
-// const Post = require('../models/post');
 const fs = require('fs');
-// const { json } = require('body-parser');
 const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
 const { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } = require('constants');
-// const { title } = require('process');
-// const { post } = require('../app');
 
 const connection = mysql.createConnection({
     host: '51.38.50.145',
@@ -26,7 +22,6 @@ exports.createPost = (req, res, next) => {
     if (req.file) {
         filename = req.file.filename;
     }
-    //const filename = req.file ? req.file.filename : ''
     connection.query('INSERT INTO post(title, description, publication, image, created, user_id) VALUES(?,?,?,?,NOW(), ?)', [req.body.title, req.body.description, req.body.publication, filename, userId],
         function(err, results) {
             if (err) {
@@ -98,12 +93,6 @@ exports.deletePost = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
 
-    /*
-SELECT post.*, (SELECT count(*) FROM `like` WHERE `like`.post_id = post.id) as likes, `like`.user_id
-FROM post
-LEFT JOIN `like` ON `like`.post_id = post.id
-    */
-
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
@@ -133,7 +122,7 @@ exports.getOnePost = (req, res, next) => {
             if (err) {
                 res.status(401).json({ status: 'KO', error: 'Post not found' })
             }
-            const post = results[0] // Index 0 du tablequ == 1er élément
+            const post = results[0]
             res.status(200).json(
                 post
             );
@@ -141,11 +130,12 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.likePost = (req, res, next) => {
+
     const postId = parseInt(req.params.id);
-    //TODO: Récupérer le user id dans le token (voir auth plus tard)
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
+
     connection.query(
         'INSERT INTO `like`(user_id, post_id) VALUES(?, ?)', [userId, postId],
         function(err, results) {

@@ -3,7 +3,7 @@
     <HeaderConnected></HeaderConnected>
     <div class="layout">
       <form id="app" @submit="checkForm" methode="post">
-        <h1>Add a new Post</h1>
+        <h1>Ajouter un Post</h1>
         Titre<input type="text" name="title" v-model="title" />
         Description<input type="text" name="texte" v-model="texte" />
         Image<input type="file" name="image" />

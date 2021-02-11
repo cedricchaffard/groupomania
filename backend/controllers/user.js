@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
-const { connect } = require('../routes/user');
+// const { connect } = require('../routes/user');
 
 const connection = mysql.createConnection({
     host: '51.38.50.145',
@@ -66,9 +66,11 @@ exports.getUsers = (req, res, next) => {
 };
 
 exports.getMe = (req, res, next) => {
+
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
+
     connection.query(
         'SELECT * FROM `user` WHERE id = ?', [userId],
         function(err, results) {
@@ -83,6 +85,7 @@ exports.getMe = (req, res, next) => {
 };
 
 exports.updateProfile = (req, res, next) => {
+
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
@@ -101,9 +104,11 @@ exports.updateProfile = (req, res, next) => {
 };
 
 exports.deleteProfile = (req, res, next) => {
+
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
+
     connection.query(
         'DELETE FROM `user` WHERE id = ?', [userId],
         function(err, results) {

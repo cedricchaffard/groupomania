@@ -15,6 +15,7 @@ module.exports = (req, res, next) => {
         const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
         const userId = decodedToken.userId;
         const admin = decodedToken.admin;
+
         connection.query(
             'SELECT * FROM post WHERE id = ?', [req.params.id],
             function(err, results) {

@@ -5,7 +5,7 @@
       <form @submit="submit">
         <h1>Profile</h1>
         <p v-if="errorMessage" class="error"></p>
-        <label for="name">Prénom :</label>
+        <label for="first_name">Prénom :</label>
         <input
           type="text"
           name="first_name"
@@ -13,8 +13,7 @@
           v-model="first_name"
           required
         />
-
-        <label for="name">Nom :</label>
+        <label for="last_name">Nom :</label>
         <input
           type="text"
           name="last_name"
@@ -22,17 +21,14 @@
           v-model="last_name"
           required
         />
-
-        <label for="name">Email:</label>
-        <input type="email" name="name" id="name" v-model="email" required />
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" v-model="email" required />
 
         <button type="submit" class="modify">Modifier mon profile</button>
       </form>
       <div class="delete">
         <h2>Supprimer mon profile</h2>
-        <button type="button" @click="deleteProfileAction">
-          Supprimer
-        </button>
+        <button type="button" @click="deleteProfileAction">Supprimer</button>
       </div>
     </div>
   </div>
@@ -145,9 +141,8 @@ form {
   border-radius: 4px;
   padding: 0 2vh 2vh 2vh;
   width: 30vh;
-
 }
-h2{
+h2 {
   font-size: 1.2em;
   font-weight: 500;
 }
@@ -172,7 +167,6 @@ button {
   z-index: 10000;
   color: white;
   background-color: black;
-  /* border: none; */
   cursor: pointer;
   border-radius: 4px;
 }

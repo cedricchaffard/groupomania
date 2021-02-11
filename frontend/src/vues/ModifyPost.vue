@@ -3,12 +3,12 @@
     <HeaderConnected></HeaderConnected>
     <div class="layout">
       <form id="app" @submit="checkForm">
-        <h1>Modify a Post</h1>
+        <h1>Modifier un Post</h1>
         Titre<input type="text" name="title" v-model="title" />
         Description<input type="text" name="texte" v-model="texte" />
         <img :src="`http://localhost:3000/images/${image}`" width="300" />
         image<input type="file" name="image" />
-        Publication 
+        Publication
         <tinymce id="d1" v-model="about"></tinymce>
         <div class="controls">
           <button>Modifier</button>
@@ -102,13 +102,8 @@ button {
   color: white;
   border: none;
   font-size: 0.8em;
-}
-
-mod{
-  font-size: .8em;
   cursor: default;
 }
-
 
 @media (max-width: 375px) {
   #app {

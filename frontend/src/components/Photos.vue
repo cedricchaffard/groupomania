@@ -13,7 +13,7 @@
     </ul>
     <div>
       <button class="add">
-        <router-link tag="mod" to="/AddPost">+ Add a new Post</router-link>
+        <router-link tag="mod" to="/AddPost">+ Ajouter un post</router-link>
       </button>
     </div>
   </div>

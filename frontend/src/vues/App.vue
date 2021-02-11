@@ -31,7 +31,7 @@
       v-if="pictureModalVisible"
       :post="photoPost"
       :close="() => (pictureModalVisible = false)"
-   >
+    >
     </PictureModal>
   </div>
 </template>
@@ -75,7 +75,6 @@ export default {
     };
   },
   created() {
-    //Faire les appels ajax pour récupérer le listing de posts
     getPosts().then((posts) => {
       this.posts = posts;
     });
@@ -109,7 +108,6 @@ export default {
       this.pictureModalVisible = true;
     },
     deletePost(postId) {
-      // Map, Reduce, Filter (MDN)
       if (confirm("Etes-vous sur de vouloir supprimer le post ?")) {
         deletePost(postId).then(() => {
           this.posts = this.posts.filter((p) => p.id !== postId);
@@ -117,7 +115,6 @@ export default {
       }
     },
     likePost(postId) {
-      //Je fais lq requete ajax pour liker un post
       likePost(postId).then((res) => {
         for (let i = 0; i < this.posts.length; i++) {
           if (this.posts[i].id === postId) {
