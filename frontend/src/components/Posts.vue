@@ -104,10 +104,12 @@ export default {
 
 <style scoped>
 .title {
-  padding: 1vh;
   font-weight: 600;
   text-transform: uppercase;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1vh 1vh 1vh;
 }
 .date {
   font-size: 0.8em;
@@ -124,7 +126,6 @@ ul {
   margin: 0 30px;
 }
 li {
-  width: 100%;
   border-radius: 4px;
   position: relative;
   border: 0.1px #ffffff3a solid;
@@ -132,6 +133,7 @@ li {
   color: rgb(255, 255, 255);
   margin-left: 0;
   margin-bottom: 1vh;
+  width: 100%;
 }
 .actions {
   display: flex;
@@ -189,7 +191,7 @@ button:active{
 img {
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 98%;
   z-index: 1000;
 }
 .menu-checkbox {
@@ -222,9 +224,6 @@ img {
   .layout {
     margin: 0;
     width: 100%;
-  }
-  img {
-    margin-left: 0;
   }
   ul {
     margin: 0;
@@ -259,10 +258,6 @@ img {
     width: 70%;
     display: flex;
   }
-  .title {
-    width: 100%;
-    padding-left: 2vh;
-  }
   .txtpost {
     width: 100%;
   }
@@ -278,9 +273,6 @@ img {
     margin: 0;
     width: 100%;
   }
-  img {
-    margin-left: 0;
-  }
   ul {
     margin: 0;
   }
@@ -289,12 +281,10 @@ img {
     flex-direction: column;
     width: 95%;
     padding: 0;
-    align-items: center;
   }
   .actions {
     width: 100%;
     margin-top: 2vh;
-    border: none;
   }
   button {
     background-color: black;
