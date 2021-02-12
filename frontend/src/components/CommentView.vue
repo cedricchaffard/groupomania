@@ -60,10 +60,8 @@ p {
 @media (max-width: 375px) {
   .layoutComment {
     margin-top: 0;
-
     border: 0.5px solid black;
     border-radius: 4px;
-    width: 100%;
   }
 }
 </style>
