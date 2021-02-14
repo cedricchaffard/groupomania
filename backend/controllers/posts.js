@@ -32,7 +32,6 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.modifyPost = (req, res, next) => {
-    //TODO Vérif de droit: Je suis admin ou l'auteur de post sinon 401
     connection.query(
         'SELECT * FROM post WHERE id = ?', [req.params.id],
         function(err, results) {
@@ -62,9 +61,6 @@ exports.modifyPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-    //TODO Vérif de droit: Je suis admin ou l'auteur de post sinon 401
-    // DELETE FROM posts WHERE id = ?
-    // TODO: Si image uploadée, la supprimer du serveur
     connection.query(
         'SELECT * FROM post WHERE id = ?', [req.params.id],
         function(err, results) {

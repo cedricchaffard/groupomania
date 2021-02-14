@@ -16,7 +16,7 @@
       </div>
       <div>
         <button @click="logout" class="logout">Déconnexion</button>
-        <router-link tag="a" to="/Profile" class="profile">Profile</router-link>
+        <router-link tag="a" to="/Profile" class="profile">Profil</router-link>
       </div>
     </div>
   </header>

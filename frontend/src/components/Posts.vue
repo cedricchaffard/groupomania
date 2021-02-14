@@ -73,7 +73,6 @@ export default {
   data() {
     return {
       commentViewVisible: {},
-      likes: 0,
     };
   },
   props: {

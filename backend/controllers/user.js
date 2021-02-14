@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2');
 const jwt = require('jsonwebtoken');
-// const { connect } = require('../routes/user');
 
 const connection = mysql.createConnection({
     host: '51.38.50.145',
