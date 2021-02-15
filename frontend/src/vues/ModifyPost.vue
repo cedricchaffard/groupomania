@@ -6,7 +6,11 @@
         <h1>Modifier un Post</h1>
         Titre<input type="text" name="title" v-model="title" />
         Description<input type="text" name="texte" v-model="texte" />
-        <img :src="`http://localhost:3000/images/${image}`" width="300" />
+        <img
+          :src="`http://localhost:3000/images/${image}`"
+          width="300"
+          alt="images publication Groupomania logo réseau entreprise"
+        />
         image<input type="file" name="image" />
         Publication
         <tinymce id="d1" v-model="about"></tinymce>

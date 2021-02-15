@@ -9,6 +9,7 @@
       <a href="/">
         <img
           src="../assets/images/groupomania_Logos/icon-left-font-monochrome-black.png"
+          alt="Groupomania logo réseau entreprise"
         />
       </a>
       <div class="infos">

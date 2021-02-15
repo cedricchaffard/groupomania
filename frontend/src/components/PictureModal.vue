@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="conteneur_modal">
-      <img v-if="post.image" :src="postimage(post.image)" />
+      <img
+        v-if="post.image"
+        :src="postimage(post.image)"
+        alt="images publication Groupomania logo réseau entreprise"
+      />
     </div>
     <div class="background_modal" @click="close"></div>
   </div>

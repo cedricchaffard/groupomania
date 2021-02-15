@@ -7,6 +7,7 @@
           <img
             :src="'http://localhost:3000/images/' + photo.image"
             width="125"
+            alt="images publication Groupomania logo réseau entreprise"
           />
         </div>
       </li>

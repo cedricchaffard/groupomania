@@ -4,6 +4,7 @@
     <div class="layout">
       <img
         src="../assets/images/groupomania_Logos/icon-left-font-monochrome-black.png"
+        alt="Groupomania logo réseau entreprise"
       />
     </div>
   </header>
@@ -61,15 +62,14 @@ img {
   margin-bottom: 10px;
 }
 
-@media (max-width: 375px){
-  img{
-      margin-left: 4vh;
+@media (max-width: 375px) {
+  img {
+    margin-left: 4vh;
   }
 }
 @media (max-width: 768px) {
-  img{
-      margin-left: 4vh;
+  img {
+    margin-left: 4vh;
   }
 }
-
 </style>

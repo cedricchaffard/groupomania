@@ -1,7 +1,12 @@
 <template>
   <ul>
     <li v-for="post in posts" :key="post.id">
-      <input class="menu-checkbox" type="checkbox" id="menu-checkbox" />
+      <input
+        aria-labelledby="menu-checkbox"
+        class="menu-checkbox"
+        type="checkbox"
+        id="menu-checkbox"
+      />
       <i class="fas fa-ellipsis-h"></i>
       <div class="title">
         {{ post.title }}
@@ -14,6 +19,7 @@
           v-if="post.image"
           :src="postimage(post.image)"
           class="image"
+          alt="images publication Groupomania logo réseau entreprise"
         />
       </div>
       <div
@@ -40,7 +46,11 @@
             <span>Modifier</span>
           </router-link>
         </button>
-        <button @click="deletePost(post.id)" class="delete" v-if="post.editable">
+        <button
+          @click="deletePost(post.id)"
+          class="delete"
+          v-if="post.editable"
+        >
           <i class="far fa-trash-alt"></i>
           <span>Supprimer</span>
         </button>
@@ -184,7 +194,7 @@ button {
   border: none;
   outline: 0;
 }
-button:active{
+button:active {
   color: black;
 }
 img {
@@ -194,6 +204,9 @@ img {
   z-index: 1000;
 }
 .menu-checkbox {
+  display: none;
+}
+.close {
   display: none;
 }
 
